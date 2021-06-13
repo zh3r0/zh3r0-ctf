@@ -2,7 +2,7 @@
 
 Can you bypass this WAF?
 
-### Author: h4d3s
+### Author: 𝖍𝖆𝖉𝖊𝖘#5218
 
 ## Soln
 Refer strpos_and_substr/admin
