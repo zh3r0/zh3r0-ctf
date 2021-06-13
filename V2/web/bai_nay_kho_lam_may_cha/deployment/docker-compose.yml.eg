@@ -1,0 +1,10 @@
+version: '2'
+services:
+  php:
+    build: ./php
+    ports:
+      - '8007:80'
+    volumes:
+      - ./html:/var/www/html
+      - ./FLlA4agGgg999gg:/FLlA4agGgg999gg:rw
+      

