@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>Test</title>
+<head>
+<style type="text/css">
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+h1{
+    font-size: 4rem;
+    color: #FFFFFF;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.btn{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 50%;
+    top: 40%;
+    transform: translateX(-50%);
+    text-decoration: none;
+    color: #FFFFFF;
+    border: #FFFFFF solid 0.2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 15rem;
+    padding: 1.5rem;
+}
+
+.split.left .btn:hover{
+    background-color: rgba(87, 84, 236, 1);
+    border-color: rgba(87, 84, 236, 1);
+}
+
+.split.right .btn:hover{
+    background-color: rgba(28, 122, 28, 1);
+    border-color: rgba(28, 122, 28, 1);
+}
+
+.container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #333333;
+}
+
+.split{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.split.left{
+    left: 0;
+    background: url('https://i.blogs.es/7d09e3/ps5-diseno-final/1366_2000.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.split.left::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(87, 84, 236, 0.7);
+}
+
+.split.right{
+    right: 0;
+    background: url('https://dpn03q9flmgew.cloudfront.net/03-16-2020/t_cde02c01fde0496f886a42e7a52c0db8_name_XboxSeriesX_FrontOrtho_DkBG_16x9_Crop_RGB_scaled.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.split.right::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(43, 43, 43, 0.8);
+}
+
+.split.right,
+.split.left,
+.split.right::before,
+.split.left::before{
+    transition: all 1000ms ease-in-out;
+}
+
+.hover-left .left{
+    width: 75%;
+}
+
+.hover-left .right{
+    width: 25%;
+}
+
+.hover-right .right{
+    width: 75%;
+}
+
+.hover-right .left{
+    width: 25%;
+}
+
+@media(max-width: 800px){
+    h1{
+        font-size: 2rem;
+        top: 30%;
+    }
+
+    .btn{
+        padding: 1.2rem;
+        width: 12rem;
+    }
+}
+</style>
+
+<body>
+
+  <div class="container">
+  <div class="split left">
+    <h1> Playstation 5 </h1>
+    <a href="request" class="btn"> Request Now </a>
+  </div>
+  <div class="split right">
+    <h1> Xbox Series X </h1>
+    <a href="request" class="btn"> Request Now! </a>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+const left = document.querySelector('.left');
+const right = document.querySelector('.right');
+const container = document.querySelector('.container');
+
+left.addEventListener('mouseenter', () => container.classList.add('hover-left'));
+left.addEventListener('mouseleave', () => container.classList.remove('hover-left'));
+
+right.addEventListener('mouseenter', () => container.classList.add('hover-right'));
+right.addEventListener('mouseleave', () => container.classList.remove('hover-right'));
+</script>
+
+</html>

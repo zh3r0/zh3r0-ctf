@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>Test</title>
+<head>
+<style type="text/css">
+  :root {
+  --colorAccent:#00D4FF; /* light blue*/
+  --colorBG:#0F1419; /* body bg */
+  --offerBG:rgba(255,255,255,.1);
+  --cta:white;
+  --page-hue:0deg; /* max 360 */
+  --font: 'Montserrat', sans-serif;
+}
+
+div {
+  box-sizing:border-box;
+}
+
+body {
+  font-family:var(--font);
+  background-color:var(--colorBG);
+  background-blend-mode:overlay;
+  margin:0;
+  width:100vw;
+  height:100vh;
+  overflow-x:hidden;
+  padding-bottom:50px;
+}
+
+#sh-container {
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+  position:relative;
+  filter:hue-rotate(var(--page-hue));
+}
+
+#sh-container img {
+  display:block;
+  width:100%;
+  max-width:800px;
+  margin:0 auto;
+  background:var(--colorAccent);
+}
+
+.sh-offer {
+  width:95%;
+  max-width:800px;
+  min-height:auto;
+  margin:50px auto;
+  position:relative;
+  border-radius:25px;
+  background:radial-gradient(circle,var(--offerBG), transparent 75%);
+  animation:loadIn 1s linear .5s forwards;
+  transform:skewX(-15deg);
+  opacity:0;
+}
+@keyframes loadIn {
+  0% { opacity:0; transform:translateX(-100%) skewX(-10deg); }
+  80% { transform:translateX(0%) skewX(-10deg); }
+  85% { transform:translateX(5%) skewX(-10deg); }
+  100% { opacity:1; }
+}
+
+.offerBlock {
+  padding:30px;
+  border-radius:25px;
+}
+
+#si-offer {
+  padding:30px;
+  text-align:center;
+  border-radius:25px;
+}
+
+.si-offer-inner {
+  width:100%;
+  padding:10px 0px;
+  text-align:center;
+  font-weight:400;
+  color:var(--colorAccent);
+}
+
+#si-price {
+  font-size:55px;
+  line-height:36px;
+  font-weight:600;
+}
+#si-info {
+  font-size:18px;
+  padding-bottom:40px;
+}
+#si-btn {
+  width:75%;
+  max-width:350px;
+  margin:0 auto;
+  background:var(--cta);
+  color:var(--colorBG);
+  text-transform:uppercase;
+  font-weight:600;
+  border-radius:25px;
+  padding:0px;
+  transition:.75s;
+  position:relative;
+}
+
+#si-btn a {
+  color:inherit;
+  text-decoration:none;
+  display:block;
+  padding:20px 0px;
+}
+#si-disc {
+  padding-top:20px;
+  padding-bottom:0;
+  font-size:10px;
+  font-family:sans-serif;
+}
+
+@media screen and (max-width:500px) {
+  #si-offer {
+    padding:15px;
+  }
+  #sh-container p {
+    font-size:50px;
+  }
+}
+
+</style>
+
+<body>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:100,400,900&display=swap" rel="stylesheet">
+
+<div id="sh-container">
+  <img src='https://contentservice.mc.reyrey.net/image_v1.0.0/?id=67ad0045-9148-5130-aee6-0d68f8db4137&637499738099741919' alt='Get These Deals Now' />
+  <div id="" class="sh-offer">
+    <div class="offerBlock">
+      <div id="si-offer">
+        <div id="si-price" class="si-offer-inner">$X,XXX</div>
+        <div id="si-info" class="si-offer-inner">Towards Your Trade</div>
+        <div id="si-btn" class="si-offer-inner">
+          <a href="#">Get This Deal Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div id="" class="sh-offer">
+    <div class="offerBlock">
+      <div id="si-offer">
+        <div id="si-price" class="si-offer-inner">Feedback</div>
+        <div id="si-info" class="si-offer-inner"></div>
+        <div id="si-btn" class="si-offer-inner">
+          <a href="feedback">Click Here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
