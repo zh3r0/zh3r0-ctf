@@ -1,0 +1,38 @@
+@font-face {
+	font-family: "VT323";
+	font-style: normal;
+	font-weight: 300;
+	src: url("VT323.ttf");
+}
+* {
+    font-family: 'Lato';
+}
+
+p, span {
+    font-size: 18px;
+}
+
+.main_title {
+    font-family: 'VT323';
+    font-size: 45px;
+    font-weight: bold;
+    color: #EBE9E6;
+}
+
+.subtitle {
+    font-family: 'VT323';
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #EBE9E6;
+}
+
+#center_div {
+    position: absolute;
+    width: 900px;
+    height: 620px;
+    z-index: 15;
+    top: 50%;
+    left: 50%;
+    margin: -340px 0 0 -450px;
+    overflow-x: visible;
+  }

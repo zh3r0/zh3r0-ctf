@@ -3,7 +3,7 @@
 
 | S.No. | Challenge Name                            | Points | solves |
 |:-----:|:-----------------------------------------:|:------:|--------|
-| 1     | []1n_jection(1n_jection/)                 | 1000   | 45     |
+| 1     | [1n_jection](1n_jection/)                 | 1000   | 45     |
 | 2     | [alice_bob_dave](alice_bob_dave/)         | 1000   | 91     |
 | 3     | [chaos](chaos/)                           | 1000   | 50     |
 | 4     | [import_numpy_as_MT](import_numpy_as_MT/) | 1000   | 15     |

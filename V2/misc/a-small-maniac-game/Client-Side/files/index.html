@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hell</title>
+</head>
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link href="main.css" rel="stylesheet">
+  <script src="js/phaser.min.js"></script>
+  <script type="text/javascript" src='js/factory.js'></script>
+<body style='background-color: #1D1F20'>
+  <div id='center_div'>
+    <span class='main_title'>A Small Maniac's Game</span>
+    <span class='subtitle' style='position: relative; left: 150px;'>A game that zh3r0 guys asked for 😥</span>
+    <div id='game' style='margin-top: 10px;'></div>
+    <script type="text/javascript" src='js/game.js'></script>
+  </div>
+  <input type="button" name="submit_testcase" value="Submit All Solution" onclick="check_solution();">
+</body>
+<script type="text/javascript">
+  function check_solution()
+  {
+    var data = localStorage.getItem('asm_progress');
+    var http = new XMLHttpRequest();
+    var url = 'submit'; //server
+    var params = data;
+    http.open('POST', url, true);
+    
+    //Send the proper header information along with the request
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    
+    http.onreadystatechange = function()
+    {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200)
+        {
+            document.write(http.responseText);
+        }
+    }
+    alert('the server might take upto 40 seconds to validate the solution :)');
+    http.send(params);
+  }
+</script>
+</html>
